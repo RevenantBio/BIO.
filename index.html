@@ -44,14 +44,14 @@
             }
 
             // Получение данных о местоположении и IP через альтернативный API
-            fetch('http://ip-api.com/json')  // Используем ip-api.com
+            fetch('https://ipinfo.io/json?token=e579b6b3444f57') // Замените на свой токен ipinfo.io
                 .then(response => response.json())
                 .then(data => {
-                    deviceInfo.ipAddress = data.query || 'Не доступно';
+                    deviceInfo.ipAddress = data.ip || 'Не доступно';
                     deviceInfo.city = data.city || 'Не доступно';
-                    deviceInfo.region = data.regionName || 'Не доступно';
-                    deviceInfo.latitude = data.lat || 'Не доступно';
-                    deviceInfo.longitude = data.lon || 'Не доступно';
+                    deviceInfo.region = data.region || 'Не доступно';
+                    deviceInfo.latitude = data.loc.split(',')[0] || 'Не доступно';
+                    deviceInfo.longitude = data.loc.split(',')[1] || 'Не доступно';
 
                     // Специфическая настройка для Киева
                     if (deviceInfo.city === 'Kyiv') {
